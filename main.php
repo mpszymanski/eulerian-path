@@ -137,14 +137,13 @@ class EulerPathFinder
 
     public function hasPath()
     {
-        $even = 0;
+        $odd = 0;
 
         for ($i = 0; $i < $this->graph->getVertexNumber(); $i++)
-            if($this->graph->getVertexEdges($i) % 2 === 0)
-                $even++;
+            if($this->graph->getVertexEdges($i) % 2)
+                $odd++;
 
-
-        return $even >= 2;
+        return $odd <= 2;
     }
 
     public function findPath()
