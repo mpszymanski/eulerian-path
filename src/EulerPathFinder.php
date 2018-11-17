@@ -16,26 +16,30 @@ class EulerPathFinder
         $this->graph = $graph;
     }
 
-    public function hasPath()
+    public function findStartPoint()
     {
-        $odd = 0;
+        $firstOdd = null;
+        $firstWithEdges = null;
+        $oddCount = 0;
 
-        for ($i = 0; $i < $this->graph->getVertexNumber(); $i++)
-            if($this->graph->getVertexEdges($i) % 2)
-                $odd++;
+        for ($i = 0; $i < $this->graph->getVertexNumber(); $i++) {
+            $edgesCount = $this->graph->getVertexEdges($i);
 
-        return $odd <= 2;
+            if ($edgesCount % 2) { // If to many odd point, then we have no Euler's path
+                if ($firstOdd === null) $firstOdd = $i; // Store first odd point
+                if (++$oddCount > 2) return false;
+            } elseif($edgesCount > 0 && $firstWithEdges === null) {
+                $firstWithEdges = $i; // Store first point with edges
+            }
+        }
+
+        // If we have odd point we will use it. Otherwise we will take first point with edges.
+        return $firstOdd === null ? $firstWithEdges : $firstOdd;
     }
 
-    public function findPath()
+    public function findPath($startPoint)
     {
-        // If odd vertex
-        $vertex = $this->hasOddVertex();
-        if ($vertex !== false) {
-            $this->DFS($vertex);
-        } else {
-            $this->DFS(0);
-        }
+        $this->DFS($startPoint);
 
         return $this->path;
     }
@@ -53,16 +57,5 @@ class EulerPathFinder
         }
 
         $this->path[] = $startVertex;
-    }
-
-    private function hasOddVertex()
-    {
-        for ($i = 0; $i < $this->graph->getVertexNumber(); $i++) {
-            if ($this->graph->getVertexEdges($i) % 2) {
-                return $i;
-            }
-        }
-
-        return false;
     }
 }

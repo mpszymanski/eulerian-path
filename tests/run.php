@@ -9,24 +9,33 @@ function callback($path) {
   $graph = GraphLoader::load($path);
   $pathFinder = new EulerPathFinder($graph);
 
-  if ($pathFinder->hasPath()) {
-      return $pathFinder->findPath();
+  $startPoint = $pathFinder->findStartPoint();
+  if ($startPoint !== false) {
+      return $pathFinder->findPath($startPoint);
   } else {
       return null;
   }
 }
 
 $tests = [
-  'graphs/graph' => [0, 5, 4, 2, 5, 1, 3, 2, 1, 4, 0],
-  'graphs/graph2' => [4, 3, 2, 0, 1, 3],
+    'graphs/graph1' => [0, 5, 4, 2, 5, 1, 3, 2, 1, 4, 0],
+    'graphs/graph2' => [4, 3, 2, 0, 1, 3],
+    'graphs/graph3' => [1, 4, 9, 7, 11, 5, 7, 6, 4, 7, 2, 5, 4, 2, 1],
+    'graphs/graph4' => [3, 2, 7, 11, 5, 10, 9, 7, 4, 9, 6, 4, 5, 2, 4, 1, 0],
+    'graphs/graph5' => null,
+    'graphs/graph6' => [4, 5, 2, 3, 4, 1, 5, 0, 1, 2],
+    'graphs/graph7' => [1, 6, 7, 8, 4, 6, 5, 4, 7, 3, 5, 2, 3, 4, 1],
+    'graphs/graph8' => [7, 8, 5, 7, 6, 4, 7, 2, 8, 1, 6, 0, 1, 4],
+    'graphs/graph9' => [0, 3, 7, 8, 5, 7, 4, 6, 3, 4, 5, 2, 4, 1, 3, 2, 1, 0
+]
 ];
 
 foreach ($tests as $path => $expected) {
   try {
       if(callback($path) === $expected) {
-        echo "Test for $path is succesfull!\n";
+          echo "Test for $path is succesfull!\n";
       } else {
-        echo "Test for $path is failed!\n";
+          echo "Test for $path is failed!\n";
       }
   } catch(Exception $e) {
       echo $e->getMessage() . "\n";

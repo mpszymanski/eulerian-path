@@ -12,13 +12,15 @@ require 'src/EulerPathFinder.php';
 require 'src/exceptions/InvalidFileException.php';
 
 try {
-    $graph = GraphLoader::load('./graphs/graph2');
+    $graph = GraphLoader::load('./graphs/graph3');
     $pathFinder = new EulerPathFinder($graph);
 
     $graph->printMatrix();
 
-    if ($pathFinder->hasPath()) {
-        $path = $pathFinder->findPath();
+    $startPoint = $pathFinder->findStartPoint();
+
+    if ($startPoint !== false) {
+        $path = $pathFinder->findPath($startPoint);
         echo "Euler path: ";
         echo implode(' ', $path) . "\n";
     } else {
