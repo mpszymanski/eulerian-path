@@ -41,6 +41,10 @@ class EulerPathFinder
     {
         $this->DFS($startPoint);
 
+        if (!$this->graph->isEmpty()) {
+            return null;
+        }
+
         return $this->path;
     }
 

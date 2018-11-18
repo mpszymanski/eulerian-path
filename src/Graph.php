@@ -2,7 +2,7 @@
 
 class Graph
 {
-    private $matrix = [], $vertexNumber;
+    private $matrix = [], $vertexNumber, $edgeNumber = 0;
 
     public function getMatrix()
     {
@@ -35,12 +35,14 @@ class Graph
     {
         $this->matrix[$vertex1][$vertex2] = 1;
         $this->matrix[$vertex2][$vertex1] = 1;
+        $this->edgeNumber++;
     }
 
     public function removeEdge(int $vertex1, int $vertex2)
     {
         $this->matrix[$vertex1][$vertex2] = 0;
         $this->matrix[$vertex2][$vertex1] = 0;
+        $this->edgeNumber--;
     }
 
     public function getVertexEdges(int $vertex)
@@ -63,5 +65,10 @@ class Graph
             }
         }
         echo "\n";
+    }
+
+    public function isEmpty()
+    {
+        return $this->edgeNumber === 0;
     }
 }

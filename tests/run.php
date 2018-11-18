@@ -26,16 +26,16 @@ $tests = [
     'graphs/graph6' => [4, 5, 2, 3, 4, 1, 5, 0, 1, 2],
     'graphs/graph7' => [1, 6, 7, 8, 4, 6, 5, 4, 7, 3, 5, 2, 3, 4, 1],
     'graphs/graph8' => [7, 8, 5, 7, 6, 4, 7, 2, 8, 1, 6, 0, 1, 4],
-    'graphs/graph9' => [0, 3, 7, 8, 5, 7, 4, 6, 3, 4, 5, 2, 4, 1, 3, 2, 1, 0
-]
+    'graphs/graph9' => [0, 3, 7, 8, 5, 7, 4, 6, 3, 4, 5, 2, 4, 1, 3, 2, 1, 0],
+    'graphs/graph10' => null
 ];
 
 foreach ($tests as $path => $expected) {
   try {
       if(callback($path) === $expected) {
-          echo "Test for $path is succesfull!\n";
+          echo "\033[0;32m [OK] Test for $path\033[0m\n";
       } else {
-          echo "Test for $path is failed!\n";
+          echo "\e[0;31m [FAIL] Test for $path\e[0m\n";
       }
   } catch(Exception $e) {
       echo $e->getMessage() . "\n";

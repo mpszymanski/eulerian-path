@@ -11,21 +11,27 @@ require 'src/GraphLoader.php';
 require 'src/EulerPathFinder.php';
 require 'src/exceptions/InvalidFileException.php';
 
+$path = readline("Path to graph: ");
+
 try {
-    $graph = GraphLoader::load('./graphs/graph3');
+    $graph = GraphLoader::load($path);
     $pathFinder = new EulerPathFinder($graph);
 
     $graph->printMatrix();
 
     $startPoint = $pathFinder->findStartPoint();
 
-    if ($startPoint !== false) {
+    if ($startPoint !== null) {
         $path = $pathFinder->findPath($startPoint);
-        echo "Euler path: ";
-        echo implode(' ', $path) . "\n";
-    } else {
-        echo "This graph has no Euler path";
+        if ($path) {
+            echo "Euler path: ";
+            echo implode(' ', $path) . "\n";
+            return;
+        }
     }
+
+    echo "This graph has no Euler path";
+    return;
 
 } catch(Exception $e) {
     echo $e->getMessage() . "\n";
