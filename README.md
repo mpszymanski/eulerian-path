@@ -3,14 +3,14 @@ Php project to find Eulerian path in graph
 
 Computational complexity
 ------------------------
-**v** - number of vertex
+**v** - a number of vertex
 
-**e** - number of edges
+**e** - a number of edges
 
-Finding start point: v + e
+**Finding start point:** v + e
 
-Finding path: e
+**Finding path:** e
 
 **v + 2e**
 
-*Only operations on matrix are consider as important for Computational complexity*
+*Only operations on the matrix are considered as important for Computational complexity*
